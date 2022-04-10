@@ -9,8 +9,9 @@
 	<?php include "includes/header.php"; ?>
 	<section id="container">
 		<h1>Bienvenido al sistema</h1>
-		<img src="img/polar.png">
-		<img src="img/polar.png">
+		<hr>
+		<img class="logo" src="img/logo.png">
+		<hr>
 	</section>
 
 <?php include "includes/footer.php"; ?>	

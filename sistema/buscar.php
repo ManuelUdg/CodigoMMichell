@@ -39,11 +39,8 @@ include "config/conect.php";
 			<?php
 			/*paginador*/
 			$sql_register = mysqli_query($conection,"SELECT COUNT(*) as total_registro FROM articulos WHERE 
-			(codigo_articulo LIKE $busqueda OR
-			nombre LIKE $busqueda OR
-			precio LIKE $busqueda OR
-			descripcion LIKE $ $busqueda
-			) AND 		
+			nombre LIKE '$busqueda' OR
+			descripcion LIKE '$busqueda' AND 		
 			estatus = 1
 			");
 			$result_registros = mysqli_fetch_array($sql_register);
@@ -64,7 +61,9 @@ include "config/conect.php";
 
 
 
-				$query = mysqli_query($conection,"SELECT * FROM articulos WHERE estatus = 1 
+				$query = mysqli_query($conection,"SELECT * FROM articulos WHERE 
+			nombre LIKE '%$busqueda%' OR
+			descripcion LIKE '%$busqueda%' AND estatus = 1 
 				ORDER BY codigo_articulo ASC
 				LIMIT $desde,$por_pagina
 				");

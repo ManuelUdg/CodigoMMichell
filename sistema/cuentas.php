@@ -1,34 +1,39 @@
 <?php
 include "config/conect.php";
-?>
+$ID = $_GET['ID'];
+if(empty($_GET['ID'])){
+	header("location: nuevo_abono.php");
+}
+
+
+?>	
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
-	<title>Cartera de Cuentas </title>
+	<title>Cuentas Activas del Cliente</title>
 </head>
 <body>
 	<?php include "includes/header.php"; ?>
-	
 	<section id="container">
-		<div class="listado_productos">
-		<h1>Cartera de Cuentas </h1>
-
+		<div class="listado_clientes">
+		<h1>Cuentas Activas</h1>
 		
 		<table>
 			<tr>
-				<th>No. Cuenta</th>
-				<th>Cliente</th>
+				<th>ID Cuenta</th>
+				<th>Nombre</th>
 				<th>Saldo</th>
 				<th>Plazos</th>
-				<th>Faltante</th>
-				<th></th>
+				<th>Articulo</th>
+				<th>Capital</th>
+				<th>Acciones</th>
 			</tr>
 
 			<?php
 			/*paginador*/
-			$sql_register = mysqli_query($conection,"SELECT COUNT(*) as total_registro FROM cuentas WHERE estatus = 0");
+			$sql_register = mysqli_query($conection,"SELECT COUNT(*) as total_registro FROM clientes WHERE estatus = 1");
 			$result_registros = mysqli_fetch_array($sql_register);
 			$total_registro = $result_registros['total_registro'];
 
@@ -44,37 +49,39 @@ include "config/conect.php";
 			$total_paginas = ceil($total_registro/$por_pagina);
 
 
+			$query = mysqli_query($conection,"SELECT * FROM cuentas WHERE estatus = 1 AND $ID = id_cliente
+					ORDER BY ID ASC
+					LIMIT $desde,$por_pagina");
 
-
-
-				$query = mysqli_query($conection,"SELECT * FROM cuentas WHERE estatus = 1 
-				ORDER BY id ASC
-				LIMIT $desde,$por_pagina
-				");
-
-				$result = mysqli_num_rows($query);
+			$result = mysqli_num_rows($query);
 
 				if($result > 0){
 
-					
-					while ($data = mysqli_fetch_array($query)) {
-						
+			while ($data = mysqli_fetch_array($query)) {
 			?>
 					<tr>
-						<td><?php echo($data['id'])?></td>
-			<?PHP 
+						<td><?php echo($data['id_abonos'])?></td>
+			<?php
 					$cliente = $data['id_cliente'];
 					$query_clientes = mysqli_query($conection,"SELECT nombre FROM clientes WHERE $cliente = ID");
 					$dats = mysqli_fetch_array($query_clientes);
 			?>
 
-						<td><?php echo($dats['nombre'])?></td>
+						<td><?php echo($dats['nombre'])?></td>			
+					
+			
 						<td><?php echo($data['saldo'])?></td>
 						<td><?php echo($data['plazos'])?></td>
-
-
+			<?php
+					$articulo = $data['id_articulo_1'];
+					$query_articulos = mysqli_query($conection,"SELECT nombre FROM articulos WHERE $articulo = codigo_articulo");
+					$datas = mysqli_fetch_array($query_articulos);
+			?>			
+											
+						<td><?php echo($datas['nombre'])?></td>
+						
 			<?PHP 
-					$suma = 0; $diferencia =0 ;
+					$suma = 0;
 					$abonos = $data['id_abonos'];
 					$query_abonos = mysqli_query($conection,"SELECT * FROM abonos WHERE $abonos = ID");
 										
@@ -105,27 +112,51 @@ include "config/conect.php";
 					$abono_23 = $abono['abono_23'];
 					$abono_24 = $abono['abono_24'];
 					$abono_25 = $abono['abono_25'];
+					$abono_26 = $abono['abono_26'];
+					$abono_27 = $abono['abono_27'];
+					$abono_28 = $abono['abono_28'];
+					$abono_29 = $abono['abono_29'];
+					$abono_30 = $abono['abono_30'];
+					$abono_31 = $abono['abono_31'];
+					$abono_32 = $abono['abono_32'];
+					$nabonos = $abono['nabonos'];
 				}
 
 					$suma = $abono_1 + 	$abono_2 + $abono_3 + $abono_4 + $abono_5 + $abono_6 + $abono_7 + $abono_8 + $abono_9 + $abono_10 + $abono_11 +
 					$abono_12 + $abono_13 + $abono_14 + $abono_15 + $abono_16 + $abono_17 + $abono_18 + $abono_19 + $abono_20 + $abono_21 + $abono_22 + $abono_23 + 
-					$abono_24 + $abono_25; 
-
-					$diferencia = $data['saldo']- $suma;
-					$suma = 0;
+					$abono_24 + $abono_25 + $abono_26 + $abono_27 + $abono_28 + $abono_29 + $abono_30 + $abono_31 + $abono_32; 
+				
+					
 			?>			
-
-
-						<td><?php echo($diferencia)?></td>
+				
+						
+						
+						<td><?php echo $suma?></td>
+			<?php
+						
+						if($suma == $data['saldo'] ){
+			?>				
+						<td>Cuenta Saldada</td>
+			<?php
+								}else{
+			?>			
 						<td>
-							 <a href="verificar_abonos.php?id=<?php echo($data['id_abonos'])?>" class="link_edit">Verificar Abonos</a>
-						</td>	<!--<a > | </a> 
-							<a href="eliminar_producto.php?id=<?php echo($data['codigo_articulo'])?>" class="link_eliminar">Eliminar</a>
-						</td>-->
+							<form action="nuevo.php" method="post" class="form_ventas">
+							<input type="hidden" name="Cnombre" value="<?php echo($dats['nombre'])?> ">
+							<input type="hidden" name="Csaldo" value="<?php echo($data['saldo'])?>">
+							<input type="hidden" name="Csuma" value="<?php echo $suma?>">
+							<input type="hidden" name="Cid_abonos" value="<?php echo $data['id_abonos']?>">	
+							<input type="hidden" name="Cnom_prod" value="<?php echo($datas['nombre'])?>">		
+							<input type="hidden" name="Cposicion" value="<?php echo $nabonos?>">
+							<input type="submit" value="Nuevo Abono" class="btn_cuentas">
+							</form>
+						</td>
 					</tr>
 			<?php
+			}
+			}
 				}	
-				}
+				
 			?>	
 
 		</table>
@@ -142,7 +173,7 @@ include "config/conect.php";
 						{
 							echo '<li class="paginaActual">'.$i.'</li>';
 						}else{
-						echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
+						echo '<li><a href=?pagina='.$i.'>'.$i.'</a></li>';
 					}}
 				?>
 			<?php if($pagina != $total_paginas){ ?>

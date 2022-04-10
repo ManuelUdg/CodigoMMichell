@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 30-03-2022 a las 03:58:35
+-- Tiempo de generación: 10-04-2022 a las 04:23:34
 -- Versión del servidor: 10.4.22-MariaDB
 -- Versión de PHP: 8.1.2
 
@@ -54,16 +54,25 @@ CREATE TABLE `abonos` (
   `abono_22` int(11) DEFAULT NULL,
   `abono_23` int(11) DEFAULT NULL,
   `abono_24` int(11) DEFAULT NULL,
-  `abono_25` int(11) DEFAULT NULL
+  `abono_25` int(11) DEFAULT NULL,
+  `abono_26` int(11) DEFAULT NULL,
+  `abono_27` int(11) DEFAULT NULL,
+  `abono_28` int(11) DEFAULT NULL,
+  `abono_29` int(11) NOT NULL,
+  `abono_30` int(11) NOT NULL,
+  `abono_31` int(11) NOT NULL,
+  `abono_32` int(11) NOT NULL,
+  `nabonos` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `abonos`
 --
 
-INSERT INTO `abonos` (`ID`, `id_cliente`, `abono_1`, `abono_2`, `abono_3`, `abono_4`, `abono_5`, `abono_6`, `abono_7`, `abono_8`, `abono_9`, `abono_10`, `abono_11`, `abono_12`, `abono_13`, `abono_14`, `abono_15`, `abono_16`, `abono_17`, `abono_18`, `abono_19`, `abono_20`, `abono_21`, `abono_22`, `abono_23`, `abono_24`, `abono_25`) VALUES
-(1, 1, 200, 350, 700, 750, 2500, 2490, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 10, 440, 440, 440, 1320, 440, 440, 440, 1030, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `abonos` (`ID`, `id_cliente`, `abono_1`, `abono_2`, `abono_3`, `abono_4`, `abono_5`, `abono_6`, `abono_7`, `abono_8`, `abono_9`, `abono_10`, `abono_11`, `abono_12`, `abono_13`, `abono_14`, `abono_15`, `abono_16`, `abono_17`, `abono_18`, `abono_19`, `abono_20`, `abono_21`, `abono_22`, `abono_23`, `abono_24`, `abono_25`, `abono_26`, `abono_27`, `abono_28`, `abono_29`, `abono_30`, `abono_31`, `abono_32`, `nabonos`) VALUES
+(1, 1, 200, 350, 700, 750, 2500, 2490, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 6),
+(2, 10, 440, 440, 440, 1320, 440, 440, 440, 1030, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 8),
+(3, 10, 500, 200, 300, 500, 300, 200, 100, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 7);
 
 -- --------------------------------------------------------
 
@@ -165,7 +174,8 @@ CREATE TABLE `cuentas` (
 
 INSERT INTO `cuentas` (`id`, `id_cliente`, `id_abonos`, `saldo`, `plazos`, `id_articulo_1`, `id_articulo_2`, `id_articulo_3`, `id_articulo_4`, `id_articulo_5`, `id_articulo_6`, `id_articulo_7`, `id_articulo_8`, `id_articulo_9`, `id_articulo_10`, `estatus`) VALUES
 (1, 1, 1, 6990, 6, 10000011, NULL, NULL, NULL, NULL, NULL, 0, 0, 0, 0, 0),
-(2, 10, 2, 4990, 12, 10000009, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0);
+(2, 10, 2, 4990, 12, 10000009, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1),
+(3, 10, 3, 5730, 12, 10000003, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -199,16 +209,17 @@ CREATE TABLE `usuarios` (
   `USUARIO` text NOT NULL,
   `PASS` text NOT NULL,
   `NOMBRE` text NOT NULL,
-  `ESTATUS` int(1) NOT NULL DEFAULT 1
+  `ESTATUS` int(1) NOT NULL DEFAULT 1,
+  `autorizacion` int(11) NOT NULL DEFAULT 2
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Volcado de datos para la tabla `usuarios`
 --
 
-INSERT INTO `usuarios` (`ID`, `USUARIO`, `PASS`, `NOMBRE`, `ESTATUS`) VALUES
-(1, 'Admin', 'e714f5e09b26f37bb36f63f24789a3b5', 'Administrador', 1),
-(2, 'Manuel', '987654', 'Juan Manuel', 1);
+INSERT INTO `usuarios` (`ID`, `USUARIO`, `PASS`, `NOMBRE`, `ESTATUS`, `autorizacion`) VALUES
+(1, 'Admin', 'e714f5e09b26f37bb36f63f24789a3b5', 'Administrador', 1, 1),
+(2, 'Manuel', '987654', 'Juan Manuel', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -242,8 +253,8 @@ CREATE TABLE `ventas` (
 -- Indices de la tabla `abonos`
 --
 ALTER TABLE `abonos`
-  ADD PRIMARY KEY (`id_cliente`),
-  ADD KEY `ID` (`ID`);
+  ADD PRIMARY KEY (`ID`) USING BTREE,
+  ADD KEY `id_cliente` (`id_cliente`) USING BTREE;
 
 --
 -- Indices de la tabla `articulos`
@@ -291,7 +302,7 @@ ALTER TABLE `ventas`
 -- AUTO_INCREMENT de la tabla `abonos`
 --
 ALTER TABLE `abonos`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `articulos`
@@ -309,7 +320,7 @@ ALTER TABLE `clientes`
 -- AUTO_INCREMENT de la tabla `cuentas`
 --
 ALTER TABLE `cuentas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `movimientos`

@@ -55,14 +55,14 @@ include "config/conect.php";
 					<!-- colocar if para plazos dependiendo delmoto a comprar-->
 					<select>
 						<option value="0">0 Semanas</option>
-						<option value="0">4 Semanas</option>
-						<option value="0">8 Semanas</option>
-						<option value="0">12 Semanas</option>
-						<option value="0">16 Semanas</option>
-						<option value="0">20 Semanas</option>
-						<option value="0">24 Semanas</option>
-						<option value="0">28 Semanas</option>
-						<option value="0">32 Semanas</option>
+						<option value="4">4 Semanas</option>
+						<option value="8">8 Semanas</option>
+						<option value="12">12 Semanas</option>
+						<option value="16">16 Semanas</option>
+						<option value="20">20 Semanas</option>
+						<option value="24">24 Semanas</option>
+						<option value="28">28 Semanas</option>
+						<option value="32">32 Semanas</option>
 					</select>
 					<label>Cliente</label>
 					<select>
@@ -123,7 +123,8 @@ include "config/conect.php";
 						<td><?php echo($data['nombre'])?></td>
 						<td><?php echo($data['precio'])?></td>
 						<td><?php echo($data['stok'])?></td>
-						<td><form action="" method="post" class="form_ventas">
+						<td><!--<a href="?IDS=<?php echo($data['codigo_articulo'])?>"><img src="./img/mas.png" class="btn_nuevo"></a>-->
+							<form action="" method="post" class="form_ventas">
 							<input type="hidden" name="IDS" value="<?php echo($data['codigo_articulo'])?>"> 
 							<input type="image"  src="./img/mas.png" class="btn_nuevo"></input></form></td>
 					</tr>

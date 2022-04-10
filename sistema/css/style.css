@@ -158,6 +158,13 @@ nav li ul li:last-child{
 #container{
 	padding: 90px 15px 15px;
 }
+.logo{
+	text-align: center;
+	display: block;
+	margin: auto;
+	width: 55%;
+	
+}
 /*****************************************************************/
 
 /*estilo de la hoja nuevo cliente*/
@@ -464,4 +471,14 @@ table td{
 	border: 0;
 	cursor: pointer;
 	margin: 15px auto;
+}
+
+/****************** Abonos **************/
+.btn_cuentas{
+	background: #1facc8;
+	color: #FFF;
+	padding: 0 20px;
+	border: 0;
+	cursor: pointer;
+	margin-left: 10px;
 }
