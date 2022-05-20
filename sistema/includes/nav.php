@@ -30,11 +30,11 @@
 					</ul>
 				</li>
 				<li class="principal">
-					<a href="#">Reportes</a>
+					<!--<a href="#">Reportes</a>
 					<ul>
 						<li><a href="#">Reporte de Ventas</a></li>
 						<li><a href="#">Reporte de Inventarios</a></li>
-					</ul>
+					</ul>-->
 				</li>
 				<li class="principal">
 					<a href="#">Usuarios</a>
@@ -44,7 +44,7 @@
 					</ul>
 				</li>
 				<li class="principal">
-					<a href="#">Movimientos</a>
+					<!--<a href="#">Movimientos</a>-->
 					<ul>
 						<li><a href="#">Movimientos</a></li>
 					</ul>

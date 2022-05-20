@@ -6,14 +6,14 @@ include "config/conect.php";
 <head>
 	<meta charset="UTF-8">
 	<?php include "includes/scripts.php"; ?>
-	<title>Cartera de Cuentas </title>
+	<title>Verificacion de Abonos </title>
 </head>
 <body>
 	<?php include "includes/header.php"; ?>
 	
 	<section id="container">
 		<div class="listado_productos">
-		<h1>Cartera de Cuentas </h1>
+		<h1>Consulta de Abonos </h1>
 
 		
 		<table>
@@ -23,7 +23,6 @@ include "config/conect.php";
 				<th>Saldo</th>
 				<th>Plazos</th>
 				<th>Faltante</th>
-				<th>Abonos</th>
 			</tr>
 
 			<?php
@@ -117,11 +116,6 @@ include "config/conect.php";
 
 
 						<td><?php echo($diferencia)?></td>
-						<td>
-							 <a href="verificar_abonos.php?id=<?php echo($data['id_abonos'])?>" class="link_edit">Verificar Abonos</a>
-						</td>	<!--<a > | </a> 
-							<a href="eliminar_producto.php?id=<?php echo($data['codigo_articulo'])?>" class="link_eliminar">Eliminar</a>
-						</td>-->
 					</tr>
 			<?php
 				}	
